@@ -16,15 +16,15 @@ public class EstudanteDao {
     }
 
     public void create(Estudante estudante){
-        em.getTransaction().begin();
+        em.getTransaction().begin();//iniciando conexoo com o banco
         try{
-            em.persist(estudante);
-            em.getTransaction().commit();
+            em.persist(estudante);//persistencia no banco
+            em.getTransaction().commit();///salvando os dados no banco
         } catch (Exception e){
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
-            em.close();
+            em.close();//terminando conexao com o banco
         }
     }
 }

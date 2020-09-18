@@ -9,14 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "estudante")
+@Entity//criando uma entidade da classe
+@Table(name = "estudante")//criando tabela para armazenamento
 public class Estudante implements Serializable {
 
+    
     private final long serialVersionUI = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Id//anotacao de id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//gerando auto incremento do id
+    @Column(name = "id")//coluna do banco 
     private long id;
     @Column(name = "nome")
     private String nome;
