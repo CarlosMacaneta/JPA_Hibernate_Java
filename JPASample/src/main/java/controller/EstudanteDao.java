@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import model.Estudante;
 
 public class EstudanteDao {
@@ -30,12 +32,18 @@ public class EstudanteDao {
     }
     
     public ArrayList<Estudante> list(){
-        em.getTransaction().begin();
-        /*try{
-            em.createQuery("SELECT * FROM estudante");
-            em.
-        }*/
-        return null;
+        
+        try{
+            CriteriaQuery cq =  em.getCriteriaBuilder().createQuery();
+
+            cq.select(cq.from(Estudante.class));
+
+            Query q = em.createQuery(cq);
+            
+            return (ArrayList<Estudante>)q.getResultList();
+        } finally {
+            em.close();
+        }
     }
     
     public Estudante findEstudante(long id) {
@@ -66,7 +74,7 @@ public class EstudanteDao {
             if (msg == null || msg.length() == 0) {
                 long id = estudante.getId();
                 if (findEstudante(id) == null) {
-                    throw new Error("The newEntity with id " + id + " no longer exists.");
+                    throw new Error("O estudante com id: " + id + " não existe.");
                 }
             }
             throw ex;
